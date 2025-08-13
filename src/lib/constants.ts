@@ -1,4 +1,3 @@
-import { type AccountAssociation } from '@farcaster/miniapp-node';
 
 /**
  * Application constants and configuration values.
@@ -72,7 +71,16 @@ export const APP_SPLASH_BACKGROUND_COLOR: string = "#f7f7f7";
  * Used to associate the mini app with a Farcaster account.
  * If not provided, the mini app will be unsigned and have limited capabilities.
  */
-export const APP_ACCOUNT_ASSOCIATION: AccountAssociation | undefined = undefined;
+export type AccountAssociation = {
+  header: string;
+  payload: string;
+  signature: string;
+}
+export const APP_ACCOUNT_ASSOCIATION: AccountAssociation = {
+    "header": "eyJmaWQiOjk3ODYyOCwidHlwZSI6ImN1c3RvZHkiLCJrZXkiOiIweDY4QkUyQkVhNEMyOTNkMTUxYzRGRGMyYUNBQmU0MTU3Yzc4NDZmMTQifQ",
+    "payload": "eyJkb21haW4iOiJteS1taW5pLWFwLnZlcmNlbC5hcHAifQ",
+    "signature": "MHg4OTJjMWI0ZDIzNzZmNThiNTliYzZjZWI3NzYwNDIwY2I5OGJkZDZkZGQwZjI5ZjgwNTQyZDEwYTc2ODU3OGRkMjcwM2JjZjJjNDhjODZiZjZkMjY0NGRiNTdhMTYxYTQ2NzA4MDNhNmRhNDEzY2ZjYjJmYTA0MDY3YzkwNjljMDFj"
+  }
 
 // --- UI Configuration ---
 /**

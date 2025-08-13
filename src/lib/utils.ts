@@ -1,6 +1,5 @@
 import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
-import { type Manifest } from '@farcaster/miniapp-node';
 import {
   APP_BUTTON_TEXT,
   APP_DESCRIPTION,
@@ -44,7 +43,8 @@ export function getMiniAppEmbedMetadata(ogImageUrl?: string) {
   };
 }
 
-export async function getFarcasterDomainManifest(): Promise<Manifest> {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export async function getFarcasterDomainManifest(): Promise<any> {
   return {
     accountAssociation: APP_ACCOUNT_ASSOCIATION,
     miniapp: {

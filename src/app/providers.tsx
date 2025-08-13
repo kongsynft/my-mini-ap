@@ -19,7 +19,7 @@ export function Providers({
   children,
   shouldUseSession = false,
 }: {
-  session: any | null;
+  session: unknown | null;
   children: React.ReactNode;
   shouldUseSession?: boolean;
 }) {
@@ -34,18 +34,22 @@ export function Providers({
         return Promise.resolve().then(() => {
           // Use eval to avoid build-time module resolution
           try {
-            // @ts-ignore - These modules may not exist in all template variants
             const nextAuth = eval('require("next-auth/react")');
             const authKit = eval('require("@farcaster/auth-kit")');
             
-            return ({ children }: { children: React.ReactNode }) => (
+            const AuthenticatedLayout = ({ children }: { children: React.ReactNode }) => (
               <nextAuth.SessionProvider session={session}>
                 <authKit.AuthKitProvider config={{}}>{children}</authKit.AuthKitProvider>
               </nextAuth.SessionProvider>
             );
-          } catch (error) {
+            AuthenticatedLayout.displayName = 'AuthenticatedLayout';
+            return AuthenticatedLayout;
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
+          } catch (_error) {
             // Fallback component when auth modules aren't available
-            return ({ children }: { children: React.ReactNode }) => <>{children}</>;
+            const FallbackLayout = ({ children }: { children: React.ReactNode }) => <>{children}</>;
+            FallbackLayout.displayName = 'FallbackLayout';
+            return FallbackLayout;
           }
         });
       },

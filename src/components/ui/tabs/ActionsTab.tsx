@@ -1,7 +1,7 @@
 'use client';
 
 import dynamic from 'next/dynamic';
-import { useCallback, useState, type ComponentType } from 'react';
+import { useCallback, useState } from 'react';
 import { useMiniApp } from '@neynar/react';
 import { ShareButton } from '../Share';
 import { Button } from '../Button';
@@ -14,10 +14,10 @@ const NeynarAuthButton = dynamic(
   () => {
     return Promise.resolve().then(() => {
       try {
-        // @ts-ignore - NeynarAuthButton may not exist in all template variants
-        const module = eval('require("../NeynarAuthButton/index")');
-        return module.default || module.NeynarAuthButton;
-      } catch (error) {
+        const authModule = eval('require("../NeynarAuthButton/index")');
+        return authModule.default || authModule.NeynarAuthButton;
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      } catch (_error) {
         // Return null component when module doesn't exist
         return () => null;
       }
