@@ -108,7 +108,24 @@ export const APP_WEBHOOK_URL: string = process.env.NEYNAR_API_KEY && process.env
  * When false, wallet functionality is completely hidden from the UI.
  * Useful for mini apps that don't require wallet integration.
  */
-export const USE_WALLET = true;
+export const USE_WALLET = false;
+
+/**
+ * Flag to enable/disable the context tab.
+ *
+ * When true, the context tab is rendered in the footer.
+ * When false, the context tab is hidden from the UI.
+ * Useful for production builds where the context tab is not needed.
+ */
+export const USE_CONTEXT_TAB = false;
+
+/**
+ * Flag to enable/disable the actions tab.
+ *
+ * When true, the actions tab is rendered in the footer.
+ * When false, the actions tab is hidden from the UI.
+ */
+export const USE_ACTIONS_TAB = false;
 
 /**
  * Flag to enable/disable analytics tracking.

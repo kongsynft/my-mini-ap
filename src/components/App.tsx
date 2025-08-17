@@ -5,7 +5,7 @@ import { useMiniApp } from "@neynar/react";
 import { Header } from "~/components/ui/Header";
 import { Footer } from "~/components/ui/Footer";
 import { HomeTab, ActionsTab, ContextTab, WalletTab } from "~/components/ui/tabs";
-import { USE_WALLET } from "~/lib/constants";
+import { USE_WALLET, USE_CONTEXT_TAB, USE_ACTIONS_TAB } from "~/lib/constants";
 import { useNeynarUser } from "../hooks/useNeynarUser";
 
 // --- Types ---
@@ -110,12 +110,18 @@ export default function App(
 
         {/* Tab content rendering */}
         {currentTab === Tab.Home && <HomeTab />}
-        {currentTab === Tab.Actions && <ActionsTab />}
-        {currentTab === Tab.Context && <ContextTab />}
+        {USE_ACTIONS_TAB && currentTab === Tab.Actions && <ActionsTab />}
+        {USE_CONTEXT_TAB && currentTab === Tab.Context && <ContextTab />}
         {currentTab === Tab.Wallet && <WalletTab />}
 
         {/* Footer with navigation */}
-        <Footer activeTab={currentTab as Tab} setActiveTab={setActiveTab} showWallet={USE_WALLET} />
+        <Footer
+          activeTab={currentTab as Tab}
+          setActiveTab={setActiveTab}
+          showWallet={USE_WALLET}
+          showContext={USE_CONTEXT_TAB}
+          showActions={USE_ACTIONS_TAB}
+        />
       </div>
     </div>
   );

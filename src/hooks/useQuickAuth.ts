@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { sdk } from '@farcaster/miniapp-sdk';
+import { USE_WALLET } from '~/lib/constants';
 
 /**
  * Represents the current authenticated user state
@@ -102,6 +103,10 @@ export function useQuickAuth(): UseQuickAuthReturn {
    */
   useEffect(() => {
     const checkExistingAuthentication = async () => {
+      if (!USE_WALLET) {
+        setStatus('unauthenticated');
+        return;
+      }
       try {
         // Attempt to retrieve existing token from QuickAuth SDK
         const { token } = await sdk.quickAuth.getToken();
@@ -142,6 +147,10 @@ export function useQuickAuth(): UseQuickAuthReturn {
    */
   const signIn = useCallback(async (): Promise<boolean> => {
     try {
+      if (!USE_WALLET) {
+        setStatus('unauthenticated');
+        return false;
+      }
       setStatus('loading');
 
       // Get QuickAuth session token
@@ -188,6 +197,9 @@ export function useQuickAuth(): UseQuickAuthReturn {
    * @returns {Promise<string | null>} The current auth token, or null if not authenticated
    */
   const getToken = useCallback(async (): Promise<string | null> => {
+    if (!USE_WALLET) {
+      return null;
+    }
     try {
       const { token } = await sdk.quickAuth.getToken();
       return token;
