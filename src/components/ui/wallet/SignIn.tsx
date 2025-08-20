@@ -2,8 +2,8 @@
 
 import { useCallback, useState } from 'react';
 import { SignIn as SignInCore } from '@farcaster/miniapp-sdk';
-import { useQuickAuth } from '~/hooks/useQuickAuth';
-import { Button } from '../Button';
+import { useQuickAuth } from '@/hooks/useQuickAuth';
+import { Button } from '@/components/ui/button';
 
 /**
  * SignIn component handles Farcaster authentication using QuickAuth.

@@ -1,8 +1,9 @@
 import type { Metadata } from 'next';
 
-import '~/app/globals.css';
-import { Providers } from '~/app/providers';
-import { APP_NAME, APP_DESCRIPTION } from '~/lib/constants';
+import '@/app/globals.css';
+import { Providers } from '@/app/providers';
+import { APP_NAME, APP_DESCRIPTION } from '@/lib/constants';
+import { ThemeProvider } from "@/components/theme-provider";
 
 export const metadata: Metadata = {
   title: APP_NAME,
@@ -22,7 +23,7 @@ export default async function RootLayout({
   let session = null;
   if (shouldUseSession) {
     try {
-      const authModule = eval('require("~/auth")');
+      const authModule = eval('require("@/auth")');
       session = await authModule.getSession();
     } catch (error) {
       console.warn('Failed to get session:', error);
@@ -30,12 +31,20 @@ export default async function RootLayout({
   }
 
   return (
-    <html lang="en">
-      <body>
-        <Providers session={session} shouldUseSession={shouldUseSession}>
-          {children}
-        </Providers>
-      </body>
-    </html>
+    <html lang="en" suppressHydrationWarning>
+        <head />
+        <body>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <Providers session={session} shouldUseSession={shouldUseSession}>
+              {children}
+            </Providers>
+          </ThemeProvider>
+        </body>
+      </html>
   );
 }

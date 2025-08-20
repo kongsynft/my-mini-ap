@@ -1,10 +1,10 @@
 'use client';
 
 import { useCallback, useState, useEffect } from 'react';
-import { Button } from './Button';
 import { useMiniApp } from '@neynar/react';
 import { type ComposeCast } from "@farcaster/miniapp-sdk";
-import { APP_URL } from '~/lib/constants';
+import { APP_URL } from '@/lib/constants';
+import { Button } from '@/components/ui/button';
 
 interface EmbedConfig {
   path?: string;
@@ -110,7 +110,7 @@ export function ShareButton({ buttonText, cast, className = '', isLoading = fals
     <Button
       onClick={handleShare}
       className={className}
-      isLoading={isLoading || isProcessing}
+      loading={isLoading || isProcessing}
       disabled={isLoadingBestFriends}
     >
       {buttonText}

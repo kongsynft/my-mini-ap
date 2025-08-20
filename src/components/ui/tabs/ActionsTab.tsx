@@ -4,10 +4,10 @@ import dynamic from 'next/dynamic';
 import { useCallback, useState } from 'react';
 import { useMiniApp } from '@neynar/react';
 import { ShareButton } from '../Share';
-import { Button } from '../Button';
+import { Button } from '@/components/ui/button';
 import { SignIn } from '../wallet/SignIn';
 import { type Haptics } from '@farcaster/miniapp-sdk';
-import { APP_URL } from '~/lib/constants';
+import { APP_URL } from '@/lib/constants';
 
 // Optional import for NeynarAuthButton - may not exist in all templates
 const NeynarAuthButton = dynamic(

@@ -3,7 +3,7 @@
 import { useCallback, useMemo } from "react";
 import { useAccount, useSendTransaction, useWaitForTransactionReceipt } from "wagmi";
 import { base } from "wagmi/chains";
-import { Button } from "../Button";
+import { Button } from '@/components/ui/button';
 import { truncateAddress } from "../../../lib/truncateAddress";
 import { renderError } from "../../../lib/errorUtils";
 
@@ -79,7 +79,7 @@ export function SendEth() {
       <Button
         onClick={sendEthTransaction}
         disabled={!isConnected || isEthTransactionPending}
-        isLoading={isEthTransactionPending}
+        loading={isEthTransactionPending}
       >
         Send Transaction (eth)
       </Button>

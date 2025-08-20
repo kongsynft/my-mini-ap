@@ -13,7 +13,7 @@ import type { Config } from "tailwindcss";
  * - Orange theme: primary: "#EA580C"
  */
 export default {
-    darkMode: "media",
+    darkMode: ["class"],
     content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -21,40 +21,48 @@ export default {
   ],
   theme: {
   	extend: {
-  		colors: {
-  			// Main theme color - change this to update the entire app's color scheme
-  			primary: "#8b5cf6", // Main brand color
-  			"primary-light": "#a78bfa", // For hover states
-  			"primary-dark": "#7c3aed", // For active states
-  			
-  			// Secondary colors for backgrounds and text
-  			secondary: "#f8fafc", // Light backgrounds
-  			"secondary-dark": "#334155", // Dark backgrounds
-  			
-  			// Legacy CSS variables for backward compatibility
-  			background: 'var(--background)',
-  			foreground: 'var(--foreground)'
-  		},
+  		  colors: {
+  		    border: "oklch(var(--border))",
+  		    input: "oklch(var(--input))",
+  		    ring: "oklch(var(--ring))",
+  		    background: "oklch(var(--background))",
+  		    foreground: "oklch(var(--foreground))",
+  		    primary: {
+  		      DEFAULT: "oklch(var(--primary))",
+  		      foreground: "oklch(var(--primary-foreground))",
+  		    },
+  		    secondary: {
+  		      DEFAULT: "oklch(var(--secondary))",
+  		      foreground: "oklch(var(--secondary-foreground))",
+  		    },
+  		    destructive: {
+  		      DEFAULT: "oklch(var(--destructive))",
+  		      foreground: "oklch(var(--destructive-foreground))",
+  		    },
+  		    muted: {
+  		      DEFAULT: "oklch(var(--muted))",
+  		      foreground: "oklch(var(--muted-foreground))",
+  		    },
+  		    accent: {
+  		      DEFAULT: "oklch(var(--accent))",
+  		      foreground: "oklch(var(--accent-foreground))",
+  		    },
+  		    popover: {
+  		      DEFAULT: "oklch(var(--popover))",
+  		      foreground: "oklch(var(--popover-foreground))",
+  		    },
+  		    card: {
+  		      DEFAULT: "oklch(var(--card))",
+  		      foreground: "oklch(var(--card-foreground))",
+  		    },
+  		  },
   		borderRadius: {
+			xl: 'calc(var(--radius) + 4px)',
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
-  			sm: 'calc(var(--radius) - 4px)'
+  			sm: 'calc(var(--radius) - 4px)',
   		},
-  		// Custom spacing for consistent layout
-  		spacing: {
-  			'18': '4.5rem',
-  			'88': '22rem',
-  		},
-  		// Custom container sizes
-  		maxWidth: {
-  			'xs': '20rem',
-  			'sm': '24rem',
-  			'md': '28rem',
-  			'lg': '32rem',
-  			'xl': '36rem',
-  			'2xl': '42rem',
-  		}
-  	}
+  	},
   },
   plugins: [require("tailwindcss-animate")],
 } satisfies Config;

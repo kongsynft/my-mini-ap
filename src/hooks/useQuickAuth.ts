@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { sdk } from '@farcaster/miniapp-sdk';
-import { USE_WALLET } from '~/lib/constants';
+import { USE_WALLET } from '@/lib/constants';
 
 /**
  * Represents the current authenticated user state

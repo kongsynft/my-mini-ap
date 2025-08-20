@@ -4,7 +4,7 @@ import { useCallback, useMemo, useState, useEffect } from "react";
 import { useAccount, useSendTransaction, useSignTypedData, useWaitForTransactionReceipt, useDisconnect, useConnect, useSwitchChain, useChainId, type Connector } from "wagmi";
 import { useWallet as useSolanaWallet } from '@solana/wallet-adapter-react';
 import { base, degen, mainnet, optimism, unichain } from "wagmi/chains";
-import { Button } from "../Button";
+import { Button } from '@/components/ui/button';
 import { truncateAddress } from "../../../lib/truncateAddress";
 import { renderError } from "../../../lib/errorUtils";
 import { SignEvmMessage } from "../wallet/SignEvmMessage";
@@ -298,7 +298,7 @@ export function WalletTab() {
           <Button
             onClick={sendEvmContractTransaction}
             disabled={!isConnected || isEvmTransactionPending}
-            isLoading={isEvmTransactionPending}
+            loading={isEvmTransactionPending}
             className="w-full"
           >
             Send Transaction (contract)
@@ -320,7 +320,7 @@ export function WalletTab() {
           <Button
             onClick={signTyped}
             disabled={!isConnected || isEvmSignTypedDataPending}
-            isLoading={isEvmSignTypedDataPending}
+            loading={isEvmSignTypedDataPending}
             className="w-full"
           >
             Sign Typed Data
@@ -329,7 +329,7 @@ export function WalletTab() {
           <Button
             onClick={handleSwitchChain}
             disabled={isChainSwitchPending}
-            isLoading={isChainSwitchPending}
+            loading={isChainSwitchPending}
             className="w-full"
           >
             Switch to {nextChain.name}

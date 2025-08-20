@@ -2,10 +2,10 @@
 
 import { useEffect } from "react";
 import { useMiniApp } from "@neynar/react";
-import { Header } from "~/components/ui/Header";
-import { Footer } from "~/components/ui/Footer";
-import { HomeTab, ActionsTab, ContextTab, WalletTab } from "~/components/ui/tabs";
-import { USE_WALLET, USE_CONTEXT_TAB, USE_ACTIONS_TAB } from "~/lib/constants";
+import { Header } from "@/components/ui/Header";
+import { Footer } from "@/components/ui/Footer";
+import { HomeTab, ActionsTab, ContextTab, WalletTab } from "@/components/ui/tabs";
+import { USE_WALLET, USE_CONTEXT_TAB, USE_ACTIONS_TAB } from "@/lib/constants";
 import { useNeynarUser } from "../hooks/useNeynarUser";
 
 // --- Types ---

@@ -3,7 +3,7 @@
 import { useCallback } from "react";
 import { useAccount, useConnect, useSignMessage } from "wagmi";
 import { base } from "wagmi/chains";
-import { Button } from "../Button";
+import { Button } from '@/components/ui/button';
 import { config } from "../../providers/WagmiProvider";
 import { APP_NAME } from "../../../lib/constants";
 import { renderError } from "../../../lib/errorUtils";
@@ -66,7 +66,7 @@ export function SignEvmMessage() {
       <Button
         onClick={signEvmMessage}
         disabled={isEvmSignMessagePending}
-        isLoading={isEvmSignMessagePending}
+        loading={isEvmSignMessagePending}
       >
         Sign Message
       </Button>

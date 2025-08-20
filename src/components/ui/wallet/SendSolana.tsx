@@ -3,7 +3,7 @@
 import { useCallback, useState } from "react";
 import { useConnection as useSolanaConnection, useWallet as useSolanaWallet } from '@solana/wallet-adapter-react';
 import { PublicKey, SystemProgram, Transaction } from '@solana/web3.js';
-import { Button } from "../Button";
+import { Button } from '@/components/ui/button';
 import { truncateAddress } from "../../../lib/truncateAddress";
 import { renderError } from "../../../lib/errorUtils";
 
@@ -95,7 +95,7 @@ export function SendSolana() {
       <Button
         onClick={sendSolanaTransaction}
         disabled={solanaTransactionState.status === 'pending'}
-        isLoading={solanaTransactionState.status === 'pending'}
+        loading={solanaTransactionState.status === 'pending'}
         className="mb-4"
       >
         Send Transaction (sol)
