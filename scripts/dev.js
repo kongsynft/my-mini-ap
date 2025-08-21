@@ -1,4 +1,3 @@
-import localtunnel from 'localtunnel';
 import { spawn } from 'child_process';
 import { createServer } from 'net';
 import dotenv from 'dotenv';
@@ -11,7 +10,6 @@ dotenv.config({ path: '.env.local' });
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const projectRoot = path.resolve(path.normalize(path.join(__dirname, '..')));
 
-let tunnel;
 let nextDev;
 let isCleaningUp = false;
 
@@ -97,52 +95,14 @@ async function startDev() {
     process.exit(1);
   }
 
-  const useTunnel = process.env.USE_TUNNEL === 'true';
-  let miniAppUrl;
-
-  if (useTunnel) {
-    // Start localtunnel and get URL
-    tunnel = await localtunnel({ port: port });
-    let ip;
-    try {
-      ip = await fetch('https://ipv4.icanhazip.com').then(res => res.text()).then(ip => ip.trim());
-    } catch (error) {
-      console.error('Error getting IP address:', error);
-    }
-
-    miniAppUrl = tunnel.url;
-    console.log(`
-🌐 Local tunnel URL: ${tunnel.url}
-
-💻 To test on desktop:
-   1. Open the localtunnel URL in your browser: ${tunnel.url}
-   2. Enter your IP address in the password field${ip ? `: ${ip}` : ''} (note that this IP may be incorrect if you are using a VPN)
-   3. Click "Click to Submit" -- your mini app should now load in the browser
-   4. Navigate to the Warpcast Mini App Developer Tools: https://warpcast.com/~/developers
-   5. Enter your mini app URL: ${tunnel.url}
-   6. Click "Preview" to launch your mini app within Warpcast (note that it may take ~10 seconds to load)
-
-
-❗️ You will not be able to load your mini app in Warpcast until    ❗️
-❗️ you submit your IP address in the localtunnel password field ❗️
-
-
-📱 To test in Warpcast mobile app:
-   1. Open Warpcast on your phone
-   2. Go to Settings > Developer > Mini Apps
-   4. Enter this URL: ${tunnel.url}
-   5. Click "Preview" (note that it may take ~10 seconds to load)
-`);
-  } else {
-    miniAppUrl = `http://localhost:${port}`;
-    console.log(`
-💻 To test your mini app:
-   1. Open the Warpcast Mini App Developer Tools: https://warpcast.com/~/developers
-   2. Scroll down to the "Preview Mini App" tool
-   3. Enter this URL: ${miniAppUrl}
-   4. Click "Preview" to test your mini app (note that it may take ~5 seconds to load the first time)
-`);
-  }
+  const miniAppUrl = `http://localhost:${port}`;
+  console.log(`
+ 💻 To test your mini app:
+    1. Open the Warpcast Mini App Developer Tools: https://warpcast.com/~/developers
+    2. Scroll down to the "Preview Mini App" tool
+    3. Enter this URL: ${miniAppUrl}
+    4. Click "Preview" to test your mini app (note that it may take ~5 seconds to load the first time)
+ `);
   
   // Start next dev with appropriate configuration
   const nextBin = path.normalize(path.join(projectRoot, 'node_modules', '.bin', 'next'));
@@ -182,14 +142,6 @@ async function startDev() {
         }
       }
       
-      if (tunnel) {
-        try {
-          await tunnel.close();
-          console.log('🌐 Tunnel closed');
-        } catch (e) {
-          console.log('Note: Tunnel already closed');
-        }
-      }
 
       // Force kill any remaining processes on the specified port
       await killProcessOnPort(port);
@@ -204,9 +156,6 @@ async function startDev() {
   process.on('SIGINT', cleanup);
   process.on('SIGTERM', cleanup);
   process.on('exit', cleanup);
-  if (tunnel) {
-    tunnel.on('close', cleanup);
-  }
 }
 
 startDev().catch(console.error); 
